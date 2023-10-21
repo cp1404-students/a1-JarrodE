@@ -1,7 +1,7 @@
 """
 Name:
-Date started:
-GitHub URL:
+Date started: 21/10/2023
+GitHub URL: https://github.com/cp1404-students/a1-JarrodE
 """
 
 
