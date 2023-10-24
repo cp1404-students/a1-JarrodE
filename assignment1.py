@@ -61,8 +61,10 @@ def add_song_to_file():
 
 
 def display_songs(songs):
+    max_title_length = max(len(song[0]) for song in songs)
+    max_artist_length = max(len(song[1]) for song in songs)
     for i, song in enumerate(songs, start=1):
-        print(f"{i}. {song[0]} - {song[1]} ({song[2]})")
+        print(f"{i}. {song[0]:{max_title_length}} - {song[1]:{max_artist_length}} ({song[2]})")
 
 
 if __name__ == '__main__':
