@@ -25,7 +25,7 @@ def main():
             display_songs(songs)
         elif choice == "A":
             print("Enter details for a new song.")
-            add_song_to_file()
+            add_new_song(songs)
         elif choice == "C":
             print()
         else:
@@ -33,6 +33,7 @@ def main():
         print(MENU)
         choice = input(">>> ").upper()
     write_file(songs)
+    print(f"{len(songs)} songs saved to {FILENAME}")
     print("Make some music!")
 
 
@@ -51,13 +52,20 @@ def write_file(songs):
             print(",".join(song), file=out_file)
 
 
-def add_song_to_file():
-    out_file = open(FILENAME, "a")
+def add_new_song(songs):
     title = input("Title: : ")
     artist = input("Artist: ")
-    year = int(input("Year: "))
-    print(f"{title} by {artist} ({year}) added to song list.", file=out_file)
-    out_file.close()
+    while True:
+        try:
+            year = int(input("Year: "))
+            if year > 0:
+                songs.append([title.title(), artist.title(), year])
+                print(f"{title.title()} by {artist.title()} ({year}) added to song list.")
+                return year
+            else:
+                print("Number must be > 0.")
+        except ValueError:
+            print("Invalid input; enter a valid number.")
 
 
 def display_songs(songs):
