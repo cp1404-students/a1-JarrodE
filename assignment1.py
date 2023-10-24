@@ -5,6 +5,8 @@ GitHub URL: https://github.com/cp1404-students/a1-JarrodE
 """
 
 FILENAME = "songs.csv"
+LEARNED = "l"
+UNLEARNED = "u"
 MENU = """Menu:
 D - Display songs
 A - Add new songs
@@ -27,7 +29,7 @@ def main():
             print("Enter details for a new song.")
             add_new_song(songs)
         elif choice == "C":
-            print()
+            print("Enter the number of a song to mark as learned.")
         else:
             print("Invalid menu choice")
         print(MENU)
@@ -53,19 +55,11 @@ def write_file(songs):
 
 
 def add_new_song(songs):
-    title = input("Title: : ")
-    artist = input("Artist: ")
-    while True:
-        try:
-            year = int(input("Year: "))
-            if year > 0:
-                songs.append([title.title(), artist.title(), year])
-                print(f"{title.title()} by {artist.title()} ({year}) added to song list.")
-                return year
-            else:
-                print("Number must be > 0.")
-        except ValueError:
-            print("Invalid input; enter a valid number.")
+    title = get_valid_input("Title: : ")
+    artist = get_valid_input("Artist: ")
+    year = get_valid_number("Year: ")
+    songs.append([title.title(), artist.title(), str(year), UNLEARNED])
+    print(f"{title.title()} by {artist.title()} ({year}) added to song list.")
 
 
 def display_songs(songs):
@@ -73,6 +67,32 @@ def display_songs(songs):
     max_artist_length = max(len(song[1]) for song in songs)
     for i, song in enumerate(songs, start=1):
         print(f"{i}. {song[0]:{max_title_length}} - {song[1]:{max_artist_length}} ({song[2]})")
+
+
+def complete_song(songs):
+    choice = input(">>> ")
+
+
+def get_valid_number(prompt):
+    while True:
+        user_input = input(prompt)
+        try:
+            number = int(user_input)
+            if number > 0:
+                return number
+            else:
+                print("Number must be > 0.")
+        except ValueError:
+            print("Invalid input; enter a valid number.")
+
+
+def get_valid_input(prompt):
+    while True:
+        user_input = input(prompt)
+        if user_input.strip():
+            return user_input.strip()
+        else:
+            print("Input can not be blank.")
 
 
 if __name__ == '__main__':
