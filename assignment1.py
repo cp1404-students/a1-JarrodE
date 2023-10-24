@@ -16,14 +16,16 @@ def main():
     """Program that allows the user to track songs that they wish to
     learn and songs they have completed learning"""
     print("Song List 1.0 - by Jarrod Eaton")
+    file_songs = load_songs(FILENAME)
+    print(f"{len(file_songs)} songs loaded.")
     print(MENU)
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "D":
-            read_file()
+            print(file_songs)
         elif choice == "A":
             print("Enter details for a new song.")
-            write_file()
+            add_song_to_file()
         elif choice == "C":
             print()
         else:
@@ -33,18 +35,28 @@ def main():
     print("Make some music!")
 
 
-def read_file():
-    in_file = open(FILENAME, "r")
-    text = in_file.read()
-    in_file.close()
-    print(text)
+def load_songs(filename):
+    songs = []
+    try:
+        with open(filename, "r") as in_file:
+            for line in in_file:
+                parts = line.strip().split(",")
+                songs.append(parts)
+        in_file.close()
+    except FileNotFoundError:
+        pass
+    return songs
 
 
-def write_file():
+def add_song_to_file():
     out_file = open(FILENAME, "a")
-    song_name = input("Title: : ")
-    print(song_name, file=out_file)
+    title = input("Title: : ")
+    artist = input("Artist: ")
+    year = int(input("Year: "))
+    print(f"{title} by {artist} ({year}) added to song list.", file=out_file)
     out_file.close()
+
+
 
 
 if __name__ == '__main__':
