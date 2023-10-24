@@ -15,14 +15,14 @@ Q - Quit"""
 def main():
     """Program that allows the user to track songs that they wish to
     learn and songs they have completed learning"""
+    songs = read_file()
     print("Song List 1.0 - by Jarrod Eaton")
-    file_songs = load_songs(FILENAME)
-    print(f"{len(file_songs)} songs loaded.")
+    print(f"{len(songs)} songs loaded")
     print(MENU)
     choice = input(">>> ").upper()
     while choice != "Q":
         if choice == "D":
-            print(file_songs)
+            display_songs(songs)
         elif choice == "A":
             print("Enter details for a new song.")
             add_song_to_file()
@@ -32,20 +32,23 @@ def main():
             print("Invalid menu choice")
         print(MENU)
         choice = input(">>> ").upper()
+    write_file(songs)
     print("Make some music!")
 
 
-def load_songs(filename):
-    songs = []
-    try:
-        with open(filename, "r") as in_file:
-            for line in in_file:
-                parts = line.strip().split(",")
-                songs.append(parts)
-        in_file.close()
-    except FileNotFoundError:
-        pass
-    return songs
+def read_file():
+    with open(FILENAME, "r") as in_file:
+        songs = []
+        for line in in_file:
+            parts = line.strip().split(",")
+            songs.append(parts)
+        return songs
+
+
+def write_file(songs):
+    with open(FILENAME, "w") as out_file:
+        for song in songs:
+            print(",".join(song), file=out_file)
 
 
 def add_song_to_file():
@@ -57,6 +60,9 @@ def add_song_to_file():
     out_file.close()
 
 
+def display_songs(songs):
+    for i, song in enumerate(songs, start=1):
+        print(f"{i}. {song[0]} - {song[1]} ({song[2]})")
 
 
 if __name__ == '__main__':
