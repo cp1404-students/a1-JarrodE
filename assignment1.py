@@ -15,8 +15,8 @@ Q - Quit"""
 
 
 def main():
-    """Program that allows the user to track and add songs that they wish to
-    learn and track songs they have completed learning"""
+    """This function manages the programs main menu and user interactions.
+    Users can choose to display songs, add new songs, complete a song, or quit the program."""
     songs = read_file()
     print("Song List 1.0 - by Jarrod Eaton")
     print(f"{len(songs)} songs loaded")
@@ -41,6 +41,7 @@ def main():
 
 
 def read_file():
+    """Read song data from a CSV file and return a list of song records."""
     with open(FILENAME, "r") as in_file:
         songs = []
         for line in in_file:
@@ -50,12 +51,14 @@ def read_file():
 
 
 def write_file(songs):
+    """Write song data to a CSV file."""
     with open(FILENAME, "w") as out_file:
         for song in songs:
             print(",".join(song), file=out_file)
 
 
 def add_new_song(songs):
+    """Add a new song to the list of songs."""
     title = get_valid_input("Title: : ")
     artist = get_valid_input("Artist: ")
     year = get_valid_number("Year: ")
@@ -64,6 +67,7 @@ def add_new_song(songs):
 
 
 def display_songs(songs):
+    """Display the list of songs with their details."""
     max_title_length = max(len(song[0]) for song in songs)
     max_artist_length = max(len(song[1]) for song in songs)
     for i, song in enumerate(songs, start=1):
@@ -72,6 +76,7 @@ def display_songs(songs):
 
 
 def complete_song(songs):
+    """Mark a song as learned in the list of songs."""
     is_song_completed = False
     while not is_song_completed:
         song_number = get_valid_number(">>> ")
@@ -87,6 +92,7 @@ def complete_song(songs):
 
 
 def get_valid_number(prompt):
+    """Get a valid integer input from the user."""
     while True:
         user_input = input(prompt)
         try:
@@ -100,6 +106,7 @@ def get_valid_number(prompt):
 
 
 def get_valid_input(prompt):
+    """Get a valid non-empty string input from the user."""
     while True:
         user_input = input(prompt)
         if user_input.strip():
