@@ -68,9 +68,10 @@ def add_new_song(songs):
 
 def display_songs(songs):
     """Display the list of songs with their details."""
+    sorted_songs = sorted(songs, key=lambda song: (song[2], song[0]))
     max_title_length = max(len(song[0]) for song in songs)
     max_artist_length = max(len(song[1]) for song in songs)
-    for i, song in enumerate(songs, start=1):
+    for i, song in enumerate(sorted_songs, start=1):
         learned_condition = "*" if song[3] == UNLEARNED else ""
         print(f"{i}. {learned_condition:2} {song[0]:{max_title_length}} - {song[1]:{max_artist_length}} ({song[2]})")
 
