@@ -2,6 +2,9 @@
 Name: Jarrod Eaton
 Date started: 21/10/2023
 GitHub URL: https://github.com/cp1404-students/a1-JarrodE
+
+This program is a simple song list that allows a user to track songs that they wish to learn and
+songs they have completed learning.
 """
 
 FILENAME = "songs.csv"
