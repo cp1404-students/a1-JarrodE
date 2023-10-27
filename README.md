@@ -15,7 +15,7 @@ I have 8 functions all up including main that completes the above tasks.
 
 1. How long did the entire project (assignment 1) take you?
 
-   > 6 1/2 days
+   > 6 1/2 days. Depending on the day, usually 2-4 hours.
 
 2. What do you plan to do differently in your development process for assignment 2?
 
